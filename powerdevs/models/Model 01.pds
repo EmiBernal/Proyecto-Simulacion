@@ -1,0 +1,79 @@
+Root-Coordinator
+ {
+  Simulator
+   {
+    Path = bomba/generador_ordenes.h
+    Parameters = 
+   }
+    Coordinator
+     {
+      Simulator
+       {
+        Path = bomba/controlador_bomba.h
+        Parameters = 
+       }
+      Simulator
+       {
+        Path = bomba/actuador_bomba.h
+        Parameters = 
+       }
+      Simulator
+       {
+        Path = bomba/sensor_flujo.h
+        Parameters = 
+       }
+      Simulator
+       {
+        Path = bomba/modulo_alarmas.h
+        Parameters = 
+       }
+      EIC
+       {
+        (0,0);(0,0)
+        (0,1);(0,2)
+        (0,2);(0,3)
+       }
+      EOC
+       {
+        (3,0);(0,0)
+       }
+      IC
+       {
+        (2,0);(0,1)
+        (1,0);(2,0)
+        (0,0);(1,0)
+        (0,1);(1,1)
+        (0,2);(3,0)
+        (0,3);(3,1)
+        (0,4);(3,2)
+       }
+     }
+  Simulator
+   {
+    Path = sinks\to_disk.h
+    Parameters = "prueba1.csv"
+   }
+  Simulator
+   {
+    Path = sources/step_sci.h
+    Parameters = "0","1000","1"
+   }
+  Simulator
+   {
+    Path = sources/step_sci.h
+    Parameters = "0","2","1"
+   }
+  EIC
+   {
+   }
+  EOC
+   {
+   }
+  IC
+   {
+    (0,0);(1,0)
+    (1,0);(2,0)
+    (3,0);(1,1)
+    (4,0);(1,2)
+   }
+ }
