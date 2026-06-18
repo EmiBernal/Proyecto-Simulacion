@@ -1,0 +1,12 @@
+Registro de eventos
+t=0 Ajuste de caudal registrado: 100
+t=37.5 Fin de bolsa registrado
+t=37.5 Alarma baja registrada
+t=42.5 Confirmacion de enfermero registrada
+t=98 Detencion de bomba registrada
+
+--- RESUMEN ---
+Alarmas bajas: 1
+Alarmas medias: 0
+Alarmas criticas: 0
+Detenciones: 1

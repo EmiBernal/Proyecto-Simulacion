@@ -1,7 +1,7 @@
 Coupled
     {
     Type = Root
-    Name = Model 01
+    Name = Modelo en proceso
     Ports = 0; 0
     Description = 
     Graphic
@@ -35,7 +35,7 @@ Coupled
             Parameters
                 {
                 modo = Val; 0 ; 
-                tiempoFijo = Val; 100 ; 
+                tiempoFijo = Val; 1000 ; 
                 minTiempo = Val; 5 ; 
                 maxTiempo = Val; 15 ; 
                 lambdaTiempo = Val; 0.1 ; 
@@ -93,7 +93,7 @@ Coupled
                     Description = Es el componente central del sistema. Recibe las �rdenes m�dicas, las mediciones del sensor de flujo, la se�al de fin de bolsa y las confirmaciones del enfermero. Decide si debe iniciar la infusi�n, ajustar el caudal, detener la bomba o emitir alarmas.
                     Graphic
                         {
-                        Position = -9630 ; -4575
+                        Position = -9555 ; -4425
                         Dimension = 3060 ; 2700
                         Direction = Right
                         Color = 15
@@ -137,8 +137,8 @@ Coupled
                         }
                     Parameters
                         {
-                        modoFalla = Val; 1 ; 
-                        factorFalla = Val; 0.7 ; 
+                        modoFalla = Val; 0 ; 
+                        factorFalla = Val; 0.8 ; 
                         }
                     }
                 Atomic
@@ -149,7 +149,7 @@ Coupled
                     Description = Atomic DEVS model
                     Graphic
                         {
-                        Position = -3525 ; -3480
+                        Position = -3525 ; -3405
                         Dimension = 2400 ; 2160
                         Direction = Right
                         Color = 15
@@ -167,7 +167,7 @@ Coupled
                     Description = Recibe eventos y los guarda como "log"
                     Graphic
                         {
-                        Position = -9165 ; -10455
+                        Position = -9840 ; -8355
                         Dimension = 1680 ; 2160
                         Direction = Right
                         Color = 15
@@ -231,7 +231,7 @@ Coupled
                         }
                     Parameters
                         {
-                        VolumenInicial = Val; 200 ; 
+                        VolumenInicial = Val; 11 ; 
                         umbralFinBolsa = Val; 10 ; 
                         periodo = Val; 1 ; 
                         }
@@ -244,7 +244,7 @@ Coupled
                     Description = Save the values (event,t) in a file.
                     Graphic
                         {
-                        Position = -12180 ; 4920
+                        Position = -12930 ; -1905
                         Dimension = 675 ; 675
                         Direction = Right
                         Color = 15
@@ -282,92 +282,92 @@ Coupled
                     {
                     Source = Prt ;  1 ;  1 ; 0
                     Sink = Cmp ;  1 ;  1 ; -1
-                    PointX = -12375 ; -12375 ; -9765
-                    PointY = -4200 ; -4200 ; -4200
+                    PointX = -12375 ; -9690 ; -9690
+                    PointY = -4200 ; -4200 ; -4050
                     }
                 Line
                     {
                     Source = Cmp ;  3 ;  1 ; 0
                     Sink = Cmp ;  1 ;  2 ; -1
-                    PointX = -9525 ; -9525 ; -9300 ; -9300 ; -11775 ; -11775 ; -9765
-                    PointY = 1500 ; 1500 ; 1500 ; 2775 ; 2775 ; -3525 ; -3525
+                    PointX = -9525 ; -9525 ; -9300 ; -9300 ; -11775 ; -11775 ; -9690
+                    PointY = 1500 ; 1500 ; 1500 ; 2775 ; 2775 ; -3375 ; -3375
                     }
                 Line
                     {
                     Source = Cmp ;  1 ;  1 ; 0
                     Sink = Cmp ;  2 ;  1 ; -1
-                    PointX = -6450 ; -5925 ; -5925 ; -5565
-                    PointY = -4275 ; -4275 ; 2325 ; 2325
+                    PointX = -6375 ; -5925 ; -5925 ; -5565
+                    PointY = -4125 ; -4125 ; 2325 ; 2325
                     }
                 Line
                     {
                     Source = Cmp ;  1 ;  2 ; 0
                     Sink = Cmp ;  2 ;  2 ; -1
-                    PointX = -6450 ; -6225 ; -6225 ; -5565
-                    PointY = -3750 ; -3750 ; 2625 ; 2625
+                    PointX = -6375 ; -6225 ; -6225 ; -5565
+                    PointY = -3600 ; -3600 ; 2625 ; 2625
                     }
                 Line
                     {
                     Source = Cmp ;  1 ;  3 ; 0
                     Sink = Cmp ;  4 ;  1 ; -1
-                    PointX = -6450 ; -3690 ; -3690
-                    PointY = -3225 ; -3225 ; -3150
+                    PointX = -6375 ; -6375 ; -3690
+                    PointY = -3075 ; -3075 ; -3075
                     }
                 Line
                     {
                     Source = Cmp ;  1 ;  4 ; 0
                     Sink = Cmp ;  4 ;  2 ; -1
-                    PointX = -6450 ; -3690 ; -3690
-                    PointY = -2700 ; -2700 ; -2625
+                    PointX = -6375 ; -6375 ; -3690
+                    PointY = -2550 ; -2550 ; -2550
                     }
                 Line
                     {
                     Source = Cmp ;  1 ;  5 ; 0
                     Sink = Cmp ;  4 ;  3 ; -1
-                    PointX = -6450 ; -6450 ; -3690
-                    PointY = -2175 ; -2175 ; -2175
+                    PointX = -6375 ; -3690 ; -3690
+                    PointY = -2025 ; -2025 ; -2100
                     }
                 Line
                     {
                     Source = Cmp ;  4 ;  1 ; 0
                     Sink = Prt ;  2 ;  1 ; -1
                     PointX = -975 ; -90 ; -90
-                    PointY = -2400 ; -2400 ; -2475
+                    PointY = -2325 ; -2325 ; -2475
                     }
                 Line
                     {
                     Source = Cmp ;  1 ;  3 ; 0
                     Sink = Cmp ;  5 ;  1 ; -1
-                    PointX = -6450 ; -5100 ; -5100 ; -11775 ; -11775 ; -9315
-                    PointY = -3225 ; -3225 ; -7725 ; -7725 ; -10275 ; -10275
+                    PointX = -6375 ; -5100 ; -5100 ; -9990 ; -9990
+                    PointY = -3075 ; -3075 ; -8700 ; -8700 ; -8175
                     }
                 Line
                     {
                     Source = Cmp ;  1 ;  4 ; 0
                     Sink = Cmp ;  5 ;  2 ; -1
-                    PointX = -6450 ; -5325 ; -5325 ; -11400 ; -11400 ; -9315
-                    PointY = -2700 ; -2700 ; -7125 ; -7125 ; -9975 ; -9975
+                    PointX = -6375 ; -5325 ; -5325 ; -11400 ; -11400 ; -9990
+                    PointY = -2550 ; -2550 ; -5775 ; -5775 ; -7875 ; -7875
                     }
                 Line
                     {
                     Source = Cmp ;  1 ;  5 ; 0
                     Sink = Cmp ;  5 ;  3 ; -1
-                    PointX = -6450 ; -5625 ; -5625 ; -10875 ; -10875 ; -9315
-                    PointY = -2175 ; -2175 ; -6075 ; -6075 ; -9675 ; -9675
+                    PointX = -6375 ; -5625 ; -5625 ; -10875 ; -10875 ; -9990
+                    PointY = -2025 ; -2025 ; -6075 ; -6075 ; -7575 ; -7575
                     }
                 Line
                     {
                     Source = Cmp ;  1 ;  2 ; 0
                     Sink = Cmp ;  5 ;  4 ; -1
-                    PointX = -6450 ; -6075 ; -6075 ; -10425 ; -10425 ; -9315
-                    PointY = -3750 ; -3750 ; -5625 ; -5625 ; -9375 ; -9375
+                    PointX = -6375 ; -6075 ; -6075 ; -9990 ; -9990
+                    PointY = -3600 ; -3600 ; -5625 ; -5625 ; -7275
                     }
                 Line
                     {
                     Source = Cmp ;  1 ;  1 ; 0
                     Sink = Cmp ;  5 ;  7 ; -1
-                    PointX = -6450 ; -6450 ; -6450 ; -9825 ; -9825 ; -9315
-                    PointY = -4275 ; -4275 ; -5175 ; -5175 ; -8550 ; -8550
+                    PointX = -6375 ; -6450 ; -6450 ; -9990 ; -9990
+                    PointY = -4125 ; -4125 ; -5175 ; -5175 ; -6450
                     }
                 Line
                     {
@@ -380,8 +380,8 @@ Coupled
                     {
                     Source = Cmp ;  3 ;  1 ; 0
                     Sink = Cmp ;  4 ;  1 ; 0
-                    PointX = -9525 ; -4275 ; -4275 ; -900 ; -900 ; -975
-                    PointY = 1500 ; 1500 ; -8175 ; -8175 ; -2400 ; -2400
+                    PointX = -9525 ; -4275 ; -4275 ; 1200 ; 1200 ; -900 ; -900 ; -975
+                    PointY = 1500 ; 1500 ; -8175 ; -8175 ; -1500 ; -1500 ; -2325 ; -2325
                     }
                 Line
                     {
@@ -401,8 +401,8 @@ Coupled
                     {
                     Source = Cmp ;  8 ;  1 ; 0
                     Sink = Cmp ;  1 ;  3 ; -1
-                    PointX = -13275 ; -10575 ; -10575 ; -9765
-                    PointY = 150 ; 150 ; -2925 ; -2925
+                    PointX = -13275 ; -10575 ; -10575 ; -9690
+                    PointY = 150 ; 150 ; -2775 ; -2775
                     }
                 Line
                     {
@@ -415,43 +415,50 @@ Coupled
                     {
                     Source = Cmp ;  8 ;  2 ; 0
                     Sink = Cmp ;  9 ;  1 ; -1
-                    PointX = -13275 ; -12750 ; -12750 ; -12315
-                    PointY = 750 ; 750 ; 5250 ; 5250
+                    PointX = -13275 ; -13065 ; -13065
+                    PointY = 750 ; 750 ; -1575
                     }
                 Line
                     {
                     Source = Cmp ;  1 ;  5 ; 0
                     Sink = Cmp ;  10 ;  1 ; -1
-                    PointX = -6450 ; -6450 ; -1425 ; -1425 ; -3540 ; -3540
-                    PointY = -2175 ; -5025 ; -5025 ; -5475 ; -5475 ; -6450
+                    PointX = -6375 ; -6375 ; -1425 ; -1425 ; -3540 ; -3540
+                    PointY = -2025 ; -5025 ; -5025 ; -5475 ; -5475 ; -6450
                     }
                 Line
                     {
                     Source = Cmp ;  10 ;  1 ; 0
                     Sink = Cmp ;  1 ;  4 ; -1
-                    PointX = -1875 ; -1875 ; -9765 ; -9765
-                    PointY = -6450 ; -4875 ; -4875 ; -2250
+                    PointX = -1875 ; -1875 ; -9690 ; -9690
+                    PointY = -6450 ; -4875 ; -4875 ; -2100
                     }
                 Line
                     {
                     Source = Cmp ;  10 ;  1 ; 0
                     Sink = Cmp ;  4 ;  4 ; -1
                     PointX = -1875 ; -1875 ; -3690 ; -3690
-                    PointY = -6450 ; -7425 ; -7425 ; -1650
+                    PointY = -6450 ; -7425 ; -7425 ; -1575
                     }
                 Line
                     {
                     Source = Cmp ;  10 ;  1 ; 0
                     Sink = Cmp ;  5 ;  5 ; -1
-                    PointX = -1875 ; -1875 ; -10050 ; -10050 ; -9315
-                    PointY = -6450 ; -7875 ; -7875 ; -9150 ; -9150
+                    PointX = -1875 ; -1875 ; -9990 ; -9990
+                    PointY = -6450 ; -5400 ; -5400 ; -7050
                     }
                 Line
                     {
                     Source = Cmp ;  8 ;  1 ; 0
                     Sink = Cmp ;  5 ;  6 ; -1
-                    PointX = -13275 ; -13275 ; -13950 ; -13950 ; -9315
-                    PointY = 150 ; -525 ; -525 ; -8850 ; -8850
+                    PointX = -13275 ; -9990 ; -9990
+                    PointY = 150 ; 150 ; -6750
+                    }
+                Line
+                    {
+                    Source = Cmp ;  4 ;  1 ; 0
+                    Sink = Cmp ;  10 ;  1 ; -1
+                    PointX = -975 ; -750 ; -750 ; -3900 ; -3900 ; -3540
+                    PointY = -2325 ; -2325 ; -4050 ; -4050 ; -6450 ; -6450
                     }
                 }
             }
