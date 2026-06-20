@@ -22,32 +22,27 @@ void controlador_bomba::init(double t, ...) {
   estadoBolsa = BOLSA_NORMAL;
   estadoAlarma = SIN_ALARMA;
   tiempo_desvio = 0;
-  tiempo_bolsa = 0;
   last_t = t;
   sigma = INFINITY;
+  alarmaBajaEmitida = false;
+  detencionProgramada = false;
 }
 
 double controlador_bomba::ta(double t) { return sigma; }
 
 void controlador_bomba::dint(double t) {
 
-  if (estadoBolsa == FIN_BOLSA && estadoAlarma == ALARMA_BAJA &&
-      tiempo_bolsa == 0) {
-    estadoBolsa = FIN_BOLSA;
-    estadoAlarma = ALARMA_BAJA;
-    tiempo_bolsa = 60.0;
+  if (estadoBolsa == FIN_BOLSA && !alarmaBajaEmitida) {
+    alarmaBajaEmitida = true;
     sigma = 60.0;
     last_t = t;
     return;
   }
 
-  if (estadoBolsa == FIN_BOLSA && estadoAlarma == ALARMA_BAJA &&
-      tiempo_bolsa == 60.0) {
+  if (estadoBolsa == FIN_BOLSA && alarmaBajaEmitida && !detencionProgramada) {
     fase = DETENIDA;
     caudalObjetivo = 0;
-    estadoBolsa = FIN_BOLSA;
-    estadoAlarma = ALARMA_BAJA;
-    tiempo_bolsa = 60.0;
+    detencionProgramada = true;
     sigma = INFINITY;
     last_t = t;
     return;
@@ -132,20 +127,19 @@ void controlador_bomba::dext(Event x, double t) {
 
     caudalReal = medicion;
 
+    if (estadoBolsa == FIN_BOLSA && alarmaBajaEmitida && !detencionProgramada) {
+      if (!std::isinf(sigma)) {
+        sigma = std::max(0.0, sigma - e);
+      }
+      last_t = t;
+      return;
+    }
+
     bool hayDesvio =
         (caudalObjetivo > 0) &&
         (std::abs(medicion - caudalObjetivo) > 0.1 * caudalObjetivo);
 
     if (estadoAlarma == ALARMA_CRITICA) {
-      last_t = t;
-      return;
-    }
-
-    if (estadoAlarma == ALARMA_BAJA) {
-      if (!std::isinf(sigma)) {
-        sigma = std::max(0.0, sigma - e);
-      }
-
       last_t = t;
       return;
     }
@@ -209,7 +203,8 @@ void controlador_bomba::dext(Event x, double t) {
     if (v == 1) {
       estadoBolsa = FIN_BOLSA;
       estadoAlarma = ALARMA_BAJA;
-      tiempo_bolsa = 0;
+      alarmaBajaEmitida = false;
+      detencionProgramada = false;
       last_t = t;
       sigma = 0;
       return;
@@ -233,7 +228,19 @@ void controlador_bomba::dext(Event x, double t) {
       return;
     }
 
-    if (estadoBolsa == FIN_BOLSA && estadoAlarma == ALARMA_BAJA) {
+    if (estadoBolsa == FIN_BOLSA && alarmaBajaEmitida && !detencionProgramada) {
+      estadoAlarma = SIN_ALARMA;
+      tiempo_desvio = 0;
+      double e = t - last_t;
+
+      if (e < 0.0) {
+        e = 0.0;
+      }
+
+      if (!std::isinf(sigma)) {
+        sigma = std::max(0.0, sigma - e);
+      }
+
       last_t = t;
       return;
     }
@@ -249,18 +256,18 @@ void controlador_bomba::dext(Event x, double t) {
 Event controlador_bomba::lambda(double t) {
   static double valor;
 
-  if (estadoBolsa == FIN_BOLSA && estadoAlarma == ALARMA_BAJA &&
-      tiempo_bolsa == 0) {
+  if (estadoBolsa == FIN_BOLSA && !alarmaBajaEmitida) {
     valor = 1;
     return Event(&valor, ALARMA_BAJA_PUERTO);
   }
 
-  if (estadoBolsa == FIN_BOLSA && tiempo_bolsa == 60.0) {
+  if (estadoBolsa == FIN_BOLSA && alarmaBajaEmitida && !detencionProgramada) {
     valor = 1;
     return Event(&valor, DETENER_BOMBA);
   }
 
-  if (fase == INFUNDIENDO && caudalObjetivo > 0 && estadoAlarma == SIN_ALARMA) {
+  if (fase == INFUNDIENDO && caudalObjetivo > 0 && estadoAlarma == SIN_ALARMA &&
+      estadoBolsa != FIN_BOLSA) {
     valor = caudalObjetivo;
     return Event(&valor, AJUSTAR_CAUDAL);
   }

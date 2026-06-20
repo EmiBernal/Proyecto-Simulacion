@@ -81,7 +81,8 @@ double generador_ordenes::siguiente_tiempo() {
 
 // Uniforme entre a y b
 double generador_ordenes::uniforme(double a, double b) {
-  double r = (double)rand() / (double)RAND_MAX;
+  double r =
+      (double)rand() / (double)RAND_MAX; // Numero aleatorio uniforme entre [0,]
   return a + r * (b - a);
 }
 

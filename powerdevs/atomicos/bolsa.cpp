@@ -5,10 +5,9 @@ void bolsa::init(double t, ...) {
   va_start(parameters, t);
 
   // Parametros configurables
-  volumenInicial = va_arg(parameters, double); // ejemplo: 1.0 o 200.0
-  umbralFinBolsa = va_arg(parameters, double); // ejemplo: 0.5 o 10.0
-  periodo = va_arg(parameters, double);        // ejemplo: 1.0
-
+  volumenInicial = va_arg(parameters, double);
+  umbralFinBolsa = va_arg(parameters, double);
+  periodo = va_arg(parameters, double);
   va_end(parameters);
 
   // Estado inicial
@@ -26,11 +25,13 @@ double bolsa::ta(double t) { return sigma; }
 void bolsa::actualizarVolumen(double dt) {
   // caudalActual esta en ml/h
   // dt esta en segundos
-  // consumo queda en ml
+
   double consumo = caudalActual * dt / 3600.0;
 
+  // consumo quedo en ml/h
   volumenActual = volumenActual - consumo;
 
+  // No negativo
   if (volumenActual < 0.0) {
     volumenActual = 0.0;
   }

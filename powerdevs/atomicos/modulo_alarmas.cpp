@@ -25,39 +25,39 @@ double modulo_alarmas::ta(double t) { return sigma; }
 // Defino la delta interna
 void modulo_alarmas::dint(double t) {
 
-  // Despues de notificar alarma baja
   if (fase == NOTIFICANDO && tipo == BAJA) {
     fase = PASIVO;
     tipo = NINGUNA;
     sigma = INFINITY;
+    return;
   }
 
-  // Despues de notificar alarma media
   if (fase == NOTIFICANDO && tipo == MEDIA) {
     fase = PASIVO;
     tipo = NINGUNA;
     sigma = INFINITY;
+    return;
   }
 
-  // Despues de notificar alarma critica
   if (fase == NOTIFICANDO && tipo == CRITICA) {
     fase = ESPERANDO_CONFIRMACION;
     tipo = CRITICA;
-    sigma = INFINITY;
+    sigma = 30.0;
+    return;
   }
 
-  // Si pasan los 30 segundos
   if (fase == ESPERANDO_CONFIRMACION && tipo == CRITICA) {
     fase = REPITIENDO;
     tipo = CRITICA;
-    sigma = 10;
+    sigma = 10.0;
+    return;
   }
 
-  // Sigue repitiendo la alarma critica
   if (fase == REPITIENDO && tipo == CRITICA) {
     fase = REPITIENDO;
     tipo = CRITICA;
-    sigma = 10;
+    sigma = 10.0;
+    return;
   }
 }
 
@@ -69,6 +69,7 @@ void modulo_alarmas::dext(Event x, double t) {
     fase = NOTIFICANDO;
     tipo = BAJA;
     sigma = 0;
+    return;
   }
 
   // En el caso de llegar una alarma media
@@ -76,6 +77,7 @@ void modulo_alarmas::dext(Event x, double t) {
     fase = NOTIFICANDO;
     tipo = MEDIA;
     sigma = 0;
+    return;
   }
 
   // En el caso de llegar una alarma critica
@@ -83,13 +85,20 @@ void modulo_alarmas::dext(Event x, double t) {
     fase = NOTIFICANDO;
     tipo = CRITICA;
     sigma = 0;
+    return;
   }
 
   // En el caso de llegar la confirmacion de un enfermero
   if (x.port == CONFIRMACION_ENFERMERO_PUERTO) {
-    fase = PASIVO;
-    tipo = NINGUNA;
-    sigma = INFINITY;
+    double v = *(double *)x.value;
+
+    if (v == 1) {
+      fase = PASIVO;
+      tipo = NINGUNA;
+      sigma = INFINITY;
+    }
+
+    return;
   }
 }
 
